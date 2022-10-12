@@ -8,13 +8,15 @@ import { IntroComponent } from './intro/intro.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
     IntroComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,
