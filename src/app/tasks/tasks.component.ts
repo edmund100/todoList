@@ -12,4 +12,6 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  dtoTasks: string[] = ['Dust the shelves', 'Take out the trash', 'Buy some paper towels'];
+
 }
