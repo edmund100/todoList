@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
+import {MatInputModule} from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
