@@ -9,6 +9,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { FormsModule } from '@angular/forms';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
@@ -27,7 +28,8 @@ import {MatListModule} from '@angular/material/list';
     BrowserAnimationsModule,
     MatMenuModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

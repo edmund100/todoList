@@ -6,7 +6,7 @@
   <form class="task-form">
     <mat-form-field class="task-full-width" appearance="fill">
       <mat-label>Task</mat-label>
-      <input matInput placeholder="Clean out my garage." value="">
+      <input matInput placeholder="Clean out my garage." [ngModelOptions]="{standalone: true}" [(ngModel)]="taskDescription">
     </mat-form-field>
   </form>
 </div>
@@ -14,7 +14,7 @@
 <div>
   <mat-selection-list #tasks>
     <mat-list-option *ngFor="let task of dtoTasks">
-      {{task}}
+      {{task.Description}}
     </mat-list-option>
   </mat-selection-list>  
 </div>
