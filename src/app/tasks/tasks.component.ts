@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class TasksComponent implements OnInit {
 
   // create an internal variable (do not change manually)
-  private _taskDescription:string;
+  private _taskDescription?:string;
 
   // getter function, called whenever the value is accessed
   get taskDescription(){
@@ -18,12 +18,27 @@ export class TasksComponent implements OnInit {
   // setter function, called whenever the value is set
   set taskDescription(text){
     this._taskDescription = text;
-    localStorage.setItem("TaskDescription", this._taskDescription);
+
+    let newTask = new Task();
+    newTask.Description = text;
+
+    let newTasks = new Array<Task>();
+    newTasks.push(newTask);
+
+    localStorage.setItem("Tasks", JSON.stringify(newTasks));
   }
 
   constructor() {
-    let taskDescriptionOld = localStorage.getItem("TaskDescription");
-    this._taskDescription= String(taskDescriptionOld);
+    let jsonTasks = String(localStorage.getItem("Tasks"));
+
+    let tasks = JSON.parse(jsonTasks) as Task[];
+    if (tasks)
+    {
+      this._taskDescription = tasks[0].Description?.toString();  
+    }
+    else{
+      this._taskDescription= "";
+    }
    }
 
   ngOnInit(): void {
@@ -31,14 +46,22 @@ export class TasksComponent implements OnInit {
 
   public dtoTasks: Task[] =
   [
-    {"Description":"Dust the shelves"},
-    {"Description":"Take out the trash"},
-    {"Description":"Buy some paper towels"}
+    {"Description":""}
   ];
 
 }
 
-class Task 
+class Task
 {
    Description?:string;
+}
+
+class Project
+{
+  constructor(){
+    this.Name ="";
+  }
+
+  Name:string;
+  Tasks?:Task[];
 }
