@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';  
+import { Component, OnInit } from '@angular/core';  
+import { ConnectableObservable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -17,9 +18,43 @@ export class TasksComponent implements OnInit {
     return this._taskDescription;
   }
 
+  saveTasksToStorage() {
+    localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
+  }
+
   deleteAllTasks() {
     this.Tasks = new Array<Task>();
-    localStorage.setItem("Tasks", JSON.stringify(this.Tasks));
+    this.saveTasksToStorage();
+  }
+
+  deleteSelectedTasks() {
+
+    let taskArray = this.Tasks;
+    if (!taskArray){
+      return;
+    }
+
+    const options = this.selectedTaskOptions;
+    if (!options){
+      return;
+    }
+
+    const selectedTasks:string[] = new Array<string>();
+    for (const selectedTask of options){
+      if(selectedTask && selectedTask.Description){
+        selectedTasks.push(selectedTask.Description);
+      }
+    }
+
+    for (const selectedTask of selectedTasks){
+      const indexToRemove = taskArray.findIndex((element)=>{
+        return element.Description == selectedTask;
+      })
+
+      taskArray.splice(indexToRemove, 1);
+    }
+
+    this.saveTasksToStorage();
   }
 
   createTask(){
@@ -48,20 +83,14 @@ export class TasksComponent implements OnInit {
 
   constructor() {
     let jsonTasks = String(localStorage.getItem("Tasks"));
-
     let tasks = JSON.parse(jsonTasks) as Task[];
-
     this.Tasks = tasks;
    }
 
   ngOnInit(): void {
   }
 
-  public dtoTasks: Task[] =
-  [
-    {"Description":""}
-  ];
-
+  selectedTaskOptions?:Task[];
 }
 
 class Task

@@ -6,13 +6,16 @@
     </mat-form-field>
     <span style="padding:5px"></span>
     <button mat-button (click)="createTask()">Create</button>
+    <span style="padding:5px"></span>
     <button mat-button (click)="deleteAllTasks()">Delete All Tasks</button>
+    <span style="padding:5px"></span>
+    <button mat-button (click)="deleteSelectedTasks()" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected Tasks</button>
   </form>
 </div>
 
 <div>
-  <mat-selection-list #tasks>
-    <mat-list-option *ngFor="let task of Tasks">
+  <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
+    <mat-list-option *ngFor="let task of Tasks" [value]="task">
       {{task.Description}}
     </mat-list-option>
   </mat-selection-list>  
