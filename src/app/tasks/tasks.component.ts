@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';  
-import { ConnectableObservable } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';  
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -8,18 +8,42 @@ import { ConnectableObservable } from 'rxjs';
 })
 export class TasksComponent implements OnInit {
 
-  // create an internal variable (do not change manually)
-  private _taskDescription?:string;
+  constructor(public dialog: MatDialog) {
+    let jsonTasks = String(localStorage.getItem("Tasks"));
+    let tasks = JSON.parse(jsonTasks) as Task[];
+    this.Tasks = tasks;
+  }
 
   public Tasks?:Task[];
 
-  // getter function, called whenever the value is accessed
-  get taskDescription(){
-    return this._taskDescription;
-  }
-
   saveTasksToStorage() {
     localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
+
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {taskName: ""},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const newTask = new Task();
+      newTask.Name = result;
+  
+      if (!this.Tasks){
+        this.Tasks = new Array<Task>();
+      }
+  
+      const previousTask = this.Tasks.find((element,index)=>{
+        return element.Name == result;
+      })
+  
+      if (!previousTask){
+        this.Tasks.push(newTask);
+        localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
+      }
+      });
   }
 
   deleteAllTasks() {
@@ -41,14 +65,14 @@ export class TasksComponent implements OnInit {
 
     const selectedTasks:string[] = new Array<string>();
     for (const selectedTask of options){
-      if(selectedTask && selectedTask.Description){
-        selectedTasks.push(selectedTask.Description);
+      if(selectedTask && selectedTask.Name){
+        selectedTasks.push(selectedTask.Name);
       }
     }
 
     for (const selectedTask of selectedTasks){
       const indexToRemove = taskArray.findIndex((element)=>{
-        return element.Description == selectedTask;
+        return element.Name == selectedTask;
       })
 
       taskArray.splice(indexToRemove, 1);
@@ -56,36 +80,6 @@ export class TasksComponent implements OnInit {
 
     this.saveTasksToStorage();
   }
-
-  createTask(){
-    const taskDescription = this._taskDescription;
-    const newTask = new Task();
-    newTask.Description = taskDescription;
-
-    if (!this.Tasks){
-      this.Tasks = new Array<Task>();
-    }
-
-    const previousTask = this.Tasks.find((element,index)=>{
-      return element.Description == taskDescription;
-    })
-
-    if (!previousTask){
-      this.Tasks.push(newTask);
-      localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
-    }
-  }
-
-  // setter function, called whenever the value is set
-  set taskDescription(text){
-    this._taskDescription = text;
-  }
-
-  constructor() {
-    let jsonTasks = String(localStorage.getItem("Tasks"));
-    let tasks = JSON.parse(jsonTasks) as Task[];
-    this.Tasks = tasks;
-   }
 
   ngOnInit(): void {
   }
@@ -95,7 +89,7 @@ export class TasksComponent implements OnInit {
 
 class Task
 {
-   Description?:string;
+   Name?:string;
 }
 
 class Project
@@ -106,4 +100,23 @@ class Project
 
   Name:string;
   Tasks?:Task[];
+}
+
+export interface DialogData {
+  taskName: string
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

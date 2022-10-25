@@ -1,11 +1,6 @@
 <div>
   <form class="task-form">
-    <mat-form-field appearance="fill">
-      <mat-label>Task</mat-label>
-      <input matInput placeholder="Clean out my garage." [ngModelOptions]="{standalone: true}" [(ngModel)]="taskDescription">
-    </mat-form-field>
-    <span style="padding:5px"></span>
-    <button mat-button (click)="createTask()">Create</button>
+    <button mat-raised-button (click)="openDialog()">Create Task</button>
     <span style="padding:5px"></span>
     <button mat-button (click)="deleteAllTasks()">Delete All Tasks</button>
     <span style="padding:5px"></span>
@@ -16,7 +11,7 @@
 <div>
   <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
     <mat-list-option *ngFor="let task of Tasks" [value]="task">
-      {{task.Description}}
+      {{task.Name}}
     </mat-list-option>
   </mat-selection-list>  
 </div>

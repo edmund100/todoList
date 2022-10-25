@@ -9,10 +9,17 @@ import { ProjectsComponent } from './projects/projects.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DialogOverviewExampleDialog} from "./tasks/tasks.component";
 
 import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import {MatListModule} from '@angular/material/list'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +27,8 @@ import {MatListModule} from '@angular/material/list';
     TasksComponent,
     IntroComponent,
     ProjectsComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -29,9 +37,18 @@ import {MatListModule} from '@angular/material/list';
     MatMenuModule,
     MatInputModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DialogOverviewExampleDialog
+  ],
 })
 export class AppModule { }
