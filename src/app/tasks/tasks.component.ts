@@ -17,6 +17,10 @@ export class TasksComponent implements OnInit {
 
   public Tasks?:Task[];
 
+  editSelectedTask(){
+    alert("to do");
+  }
+
   saveTasksToStorage() {
     localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
   }
