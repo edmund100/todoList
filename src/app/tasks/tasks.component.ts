@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';  
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {Task} from '../shared/Task';
 
 @Component({
   selector: 'app-tasks',
@@ -18,8 +19,8 @@ export class TasksComponent implements OnInit {
 
   saveTasksToStorage() {
     localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
-
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
@@ -27,6 +28,9 @@ export class TasksComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result || result == ""){
+        return;
+      }
 
       const newTask = new Task();
       newTask.Name = result;
@@ -41,9 +45,9 @@ export class TasksComponent implements OnInit {
   
       if (!previousTask){
         this.Tasks.push(newTask);
-        localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
+        this.saveTasksToStorage();
       }
-      });
+    });
   }
 
   deleteAllTasks() {
@@ -52,7 +56,6 @@ export class TasksComponent implements OnInit {
   }
 
   deleteSelectedTasks() {
-
     let taskArray = this.Tasks;
     if (!taskArray){
       return;
@@ -87,21 +90,6 @@ export class TasksComponent implements OnInit {
   selectedTaskOptions?:Task[];
 }
 
-class Task
-{
-   Name?:string;
-}
-
-class Project
-{
-  constructor(){
-    this.Name ="";
-  }
-
-  Name:string;
-  Tasks?:Task[];
-}
-
 export interface DialogData {
   taskName: string
 }
@@ -115,8 +103,4 @@ export class DialogOverviewExampleDialog {
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }
