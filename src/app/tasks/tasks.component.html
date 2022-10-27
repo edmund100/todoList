@@ -1,20 +1,22 @@
 <div>
   <form class="task-form">
-    <button mat-raised-button (click)="openDialog()">Create Task</button>
-    <button mat-raised-button (click)="deleteAllTasks()">Delete All Tasks</button>
-    <button mat-raised-button (click)="deleteSelectedTasks()" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected Tasks</button>
-    <button mat-raised-button (click)="editSelectedTask()" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected Tasks</button>
+    <button mat-raised-button (click)="openDialog()">Create</button>
+    <span>&nbsp;</span>
+    <button mat-raised-button (click)="deleteAllTasks()">Delete All</button>
+    <span>&nbsp;</span>
+    <button mat-raised-button (click)="deleteSelectedTasks()" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
+    <span>&nbsp;</span>
+    <button mat-raised-button (click)="editSelectedTask()" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
   </form>
 </div>
 
 <div>
   <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
-    <mat-list-option checkboxPosition="before" *ngFor="let task of Tasks" [value]="task">
+    <mat-list-option checkboxPosition="before" *ngFor="let task of SortedTasks" [value]="task">
       {{task.Name}}
     </mat-list-option>
   </mat-selection-list>  
 </div>
 <div style="padding-top:20px">
   Tasks selected: {{tasks.selectedOptions.selected.length}}
-</div>  
-
+</div>

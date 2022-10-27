@@ -13,9 +13,33 @@ export class TasksComponent implements OnInit {
     let jsonTasks = String(localStorage.getItem("Tasks"));
     let tasks = JSON.parse(jsonTasks) as Task[];
     this.Tasks = tasks;
+    this.updateSortedTasks();
   }
 
   public Tasks?:Task[];
+
+  public SortedTasks?:Task[];
+
+  updateSortedTasks(){
+    if (!this.Tasks){
+      return;
+    }
+
+    this.SortedTasks = this.Tasks.sort((n1,n2) => {
+
+      if (n1.Name == null || n2.Name == null){
+        return 0;
+      }
+
+      if (n1.Name > n2.Name)
+        return 1;
+      
+      if (n1.Name < n2.Name)
+        return -1;
+      
+      return 0;
+    });;
+  }
 
   editSelectedTask(){
     alert("to do");
@@ -51,16 +75,20 @@ export class TasksComponent implements OnInit {
         this.Tasks.push(newTask);
         this.saveTasksToStorage();
       }
+
+      this.updateSortedTasks();
     });
   }
 
   deleteAllTasks() {
     this.Tasks = new Array<Task>();
+    this.SortedTasks = new Array<Task>();
+
     this.saveTasksToStorage();
   }
 
   deleteSelectedTasks() {
-    let taskArray = this.Tasks;
+    let taskArray = this.SortedTasks;
     if (!taskArray){
       return;
     }
@@ -86,6 +114,7 @@ export class TasksComponent implements OnInit {
     }
 
     this.saveTasksToStorage();
+    this.Tasks = this.SortedTasks;
   }
 
   ngOnInit(): void {
