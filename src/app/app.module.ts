@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DialogOverviewExampleDialog} from "./tasks/tasks.component";
+import {EditDialog} from "./tasks/tasks.component";
 
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list'; 
@@ -28,7 +28,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     IntroComponent,
     ProjectsComponent,
     NavMenuComponent,
-    DialogOverviewExampleDialog
+    EditDialog
   ],
   imports: [
     BrowserModule,
@@ -49,7 +49,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogOverviewExampleDialog
+    EditDialog
   ],
 })
 export class AppModule { }

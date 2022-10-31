@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';  
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatListOption } from '@angular/material/list';
 import {Task} from '../shared/Task';
 
 @Component({
@@ -41,8 +42,58 @@ export class TasksComponent implements OnInit {
     });;
   }
 
+  // clear selected tasks
+  clearSelectedTask() {
+    const options = this.selectedTaskOptions;
+    if (!options){
+      return;
+    }
+
+    alert ("todo");
+  }
+
   editSelectedTask(){
-    alert("to do");
+    // Get selected task.
+    const options = this.selectedTaskOptions;
+    if (!options){
+      return;
+    }
+
+    if (options.length != 1){
+      return;
+    }
+
+    let oldTaskName: string = options[0].Name || '';
+    if (oldTaskName == '') {
+      return;
+    }
+
+    // Put up dialog with taskn name.
+    const dialogRef = this.dialog.open(EditDialog, {
+      width: '250px',
+      data: {taskName: oldTaskName},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result || result == ""){
+        return;
+      }
+  
+      if (!this.Tasks){
+        this.Tasks = new Array<Task>();
+      }
+  
+      const previousTask = this.Tasks.find((element,index)=>{
+        return element.Name == oldTaskName;
+      })
+  
+      if (previousTask){
+        previousTask.Name = result;
+        this.saveTasksToStorage();
+      }
+
+      this.updateSortedTasks();
+    });
   }
 
   saveTasksToStorage() {
@@ -50,7 +101,7 @@ export class TasksComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    const dialogRef = this.dialog.open(EditDialog, {
       width: '250px',
       data: {taskName: ""},
     });
@@ -128,12 +179,12 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: 'dialog-overview-example-dialog.html',
+  selector: 'edit-dialog',
+  templateUrl: 'edit-dialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class EditDialog {
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    public dialogRef: MatDialogRef<EditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 }
