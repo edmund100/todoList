@@ -1,12 +1,12 @@
 <div>
   <form class="task-form">
-    <button mat-raised-button (click)="openDialog()">Create</button>
+    <button mat-raised-button (click)="openDialog()" matTooltip="Create a task">Create</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteAllTasks()">Delete All</button>
+    <button mat-raised-button (click)="deleteAllTasks()" matTooltip="Delete all tasks">Delete All</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteSelectedTasks()" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
+    <button mat-raised-button (click)="deleteSelectedTasks()" matTooltip="Delete selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="editSelectedTask()" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
+    <button mat-raised-button (click)="editSelectedTask()" matTooltip="Edit selected task" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
   </form>
 </div>
 
