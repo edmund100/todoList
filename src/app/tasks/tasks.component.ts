@@ -1,3 +1,4 @@
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { Component, OnInit, Inject } from '@angular/core';  
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListOption } from '@angular/material/list';
@@ -19,25 +20,21 @@ export class TasksComponent implements OnInit {
 
   public Tasks?:Task[];
 
-  public SortedTasks?:Task[];
-
   updateSortedTasks(){
     if (!this.Tasks){
       return;
     }
 
-    this.SortedTasks = this.Tasks.sort((n1,n2) => {
+    this.Tasks = this.Tasks.sort((n1,n2) => {
 
-      if (n1.Name == null || n2.Name == null){
-        return 0;
-      }
+      if (n1 && n1.Name && n2 && n2.Name){
+        if (n1.Name > n2.Name)
+          return 1;
+      
+        if (n1.Name < n2.Name)
+          return -1;
+      }      
 
-      if (n1.Name > n2.Name)
-        return 1;
-      
-      if (n1.Name < n2.Name)
-        return -1;
-      
       return 0;
     });;
   }
@@ -49,11 +46,8 @@ export class TasksComponent implements OnInit {
       return;
     }
 
-    for (const selectedTask of options){
-      if(selectedTask.Selected){
-        selectedTask.Selected = false;
-      }
-    }
+    options.filter(element => element.Selected).forEach(
+        element => {element.Selected = false;});
   }
 
   editSelectedTask(){
@@ -69,10 +63,7 @@ export class TasksComponent implements OnInit {
     }
 
     // Put up dialog with taskn name.
-    const dialogRef = this.dialog.open(EditDialog, {
-      width: '500px',
-      data: {taskName: oldTaskName, title:"Edit Task"},
-    });
+    const dialogRef = this.openDialog(oldTaskName, "Edit Task");
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result || result == ""){
@@ -100,11 +91,18 @@ export class TasksComponent implements OnInit {
     localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
   }
 
-  createTask(): void {
+  openDialog(taskName: string, title: string){
     const dialogRef = this.dialog.open(EditDialog, {
       width: '500px',
-      data: {taskName: "", title:"Create Task"}
+      data: {taskName: taskName, title:title}
     });
+
+    return dialogRef;
+  }
+
+  createTask(): void {
+
+    const dialogRef = this.openDialog("", "Create Task");
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result || result == ""){
@@ -133,28 +131,21 @@ export class TasksComponent implements OnInit {
 
   deleteAllTasks() {
     this.Tasks = new Array<Task>();
-    this.SortedTasks = new Array<Task>();
 
     this.saveTasksToStorage();
   }
 
   deleteSelectedTasks() {
-    let taskArray = this.SortedTasks;
-    if (!taskArray){
-      return;
-    }
-
+    let taskArray = this.Tasks;
     const options = this.selectedTaskOptions;
-    if (!options){
+    if (!taskArray || !options){
       return;
     }
 
     const selectedTasks:string[] = new Array<string>();
-    for (const selectedTask of options){
-      if(selectedTask && selectedTask.Name){
-        selectedTasks.push(selectedTask.Name);
-      }
-    }
+
+    options.filter(element => element.Name && element.Selected).forEach(
+      element => {selectedTasks.push(element.Name ?? "")});
 
     for (const selectedTask of selectedTasks){
       const indexToRemove = taskArray.findIndex((element)=>{
@@ -165,7 +156,6 @@ export class TasksComponent implements OnInit {
     }
 
     this.saveTasksToStorage();
-    this.Tasks = this.SortedTasks;
   }
 
   ngOnInit(): void {

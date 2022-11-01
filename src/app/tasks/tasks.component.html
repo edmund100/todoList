@@ -18,7 +18,7 @@
 
 <div>
   <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
-    <mat-list-option #option checkboxPosition="before" *ngFor="let task of SortedTasks" [value]="task" [(selected)]="task.Selected" >
+    <mat-list-option #option checkboxPosition="before" *ngFor="let task of Tasks" [value]="task" [(selected)]="task.Selected" >
       {{task.Name}}
     </mat-list-option>
   </mat-selection-list>  
