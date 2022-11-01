@@ -59,11 +59,7 @@ export class TasksComponent implements OnInit {
   editSelectedTask(){
     // Get selected task.
     const options = this.selectedTaskOptions;
-    if (!options){
-      return;
-    }
-
-    if (options.length != 1){
+    if (!options || options.length != 1){
       return;
     }
 
@@ -74,8 +70,8 @@ export class TasksComponent implements OnInit {
 
     // Put up dialog with taskn name.
     const dialogRef = this.dialog.open(EditDialog, {
-      width: '250px',
-      data: {taskName: oldTaskName},
+      width: '500px',
+      data: {taskName: oldTaskName, title:"Edit Task"},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -104,10 +100,10 @@ export class TasksComponent implements OnInit {
     localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
   }
 
-  openDialog(): void {
+  createTask(): void {
     const dialogRef = this.dialog.open(EditDialog, {
-      width: '250px',
-      data: {taskName: ""},
+      width: '500px',
+      data: {taskName: "", title:"Create Task"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -179,7 +175,8 @@ export class TasksComponent implements OnInit {
 }
 
 export interface DialogData {
-  taskName: string
+  taskName: string,
+  title: string
 }
 
 @Component({
