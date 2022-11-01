@@ -43,13 +43,17 @@ export class TasksComponent implements OnInit {
   }
 
   // clear selected tasks
-  clearSelectedTask() {
+  clearSelectedTask() {    
     const options = this.selectedTaskOptions;
     if (!options){
       return;
     }
 
-    alert ("todo");
+    for (const selectedTask of options){
+      if(selectedTask.Selected){
+        selectedTask.Selected = false;
+      }
+    }
   }
 
   editSelectedTask(){

@@ -1,19 +1,24 @@
 <div>
   <form class="task-form">
-    <button mat-raised-button (click)="openDialog()" matTooltip="Create a task">Create</button>
+    <button mat-raised-button (click)="openDialog()"
+      matTooltip="Create a task">Create</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteAllTasks()" matTooltip="Delete all tasks">Delete All</button>
+    <button mat-raised-button (click)="deleteAllTasks()"
+      matTooltip="Delete all tasks">Delete All</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteSelectedTasks()" matTooltip="Delete selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
+    <button mat-raised-button (click)="deleteSelectedTasks()"
+      matTooltip="Delete selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="editSelectedTask()" matTooltip="Edit selected task" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
+    <button mat-raised-button (click)="editSelectedTask()"
+      matTooltip="Edit selected task" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
     <span>&nbsp;</span>
-    <button mat-raised-button (click)="clearSelectedTask()" matTooltip="Clear selected tasks" [disabled]="tasks.selectedOptions.selected.length > 1">Clear Selected</button>  </form>
+    <button mat-raised-button (click)="clearSelectedTask()"
+      matTooltip="Clear selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Clear Selected</button>  </form>
 </div>
 
 <div>
   <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
-    <mat-list-option #option checkboxPosition="before" *ngFor="let task of SortedTasks" [value]="task" [selected]="task.Selected" >
+    <mat-list-option #option checkboxPosition="before" *ngFor="let task of SortedTasks" [value]="task" [(selected)]="task.Selected" >
       {{task.Name}}
     </mat-list-option>
   </mat-selection-list>  
