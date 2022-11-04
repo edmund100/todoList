@@ -1,8 +1,8 @@
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { Component, OnInit, Inject } from '@angular/core';  
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatListOption } from '@angular/material/list';
 import {Task} from '../shared/Task';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-tasks',
@@ -11,7 +11,7 @@ import {Task} from '../shared/Task';
 })
 export class TasksComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private Data: DataService) {
     let jsonTasks = String(localStorage.getItem("Tasks"));
     let tasks = JSON.parse(jsonTasks) as Task[];
     this.Tasks = tasks;
