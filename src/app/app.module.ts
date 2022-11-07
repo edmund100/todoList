@@ -45,7 +45,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule
-  ],
+],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [

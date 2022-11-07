@@ -1,8 +1,8 @@
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { Component, OnInit, Inject } from '@angular/core';  
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {Task} from '../shared/Task';
 import {DataService} from '../data.service';
+import {Task} from '../shared/Task';
 
 @Component({
   selector: 'app-tasks',
@@ -12,32 +12,16 @@ import {DataService} from '../data.service';
 export class TasksComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private Data: DataService) {
-    let jsonTasks = String(localStorage.getItem("Tasks"));
-    let tasks = JSON.parse(jsonTasks) as Task[];
+
+    // how do we call the DataService? todo
+    let tasks = this.DataService.loadData();
     this.Tasks = tasks;
-    this.updateSortedTasks();
+    Task.sort(tasks);
   }
+
+  private DataService:DataService = new DataService();
 
   public Tasks?:Task[];
-
-  updateSortedTasks(){
-    if (!this.Tasks){
-      return;
-    }
-
-    this.Tasks = this.Tasks.sort((n1,n2) => {
-
-      if (n1 && n1.Name && n2 && n2.Name){
-        if (n1.Name > n2.Name)
-          return 1;
-      
-        if (n1.Name < n2.Name)
-          return -1;
-      }      
-
-      return 0;
-    });;
-  }
 
   // clear selected tasks
   clearSelectedTask() {    
@@ -80,15 +64,11 @@ export class TasksComponent implements OnInit {
   
       if (previousTask){
         previousTask.Name = result;
-        this.saveTasksToStorage();
+        this.DataService.saveData(this.Tasks);
       }
 
-      this.updateSortedTasks();
+      Task.sort(this.Tasks);
     });
-  }
-
-  saveTasksToStorage() {
-    localStorage.setItem("Tasks", JSON.stringify(this.Tasks));  
   }
 
   openDialog(taskName: string, title: string){
@@ -122,17 +102,16 @@ export class TasksComponent implements OnInit {
   
       if (!previousTask){
         this.Tasks.push(newTask);
-        this.saveTasksToStorage();
+        this.DataService.saveData(this.Tasks);
       }
 
-      this.updateSortedTasks();
+      Task.sort(this.Tasks);
     });
   }
 
   deleteAllTasks() {
     this.Tasks = new Array<Task>();
-
-    this.saveTasksToStorage();
+    this.DataService.saveData(this.Tasks);
   }
 
   deleteSelectedTasks() {
@@ -155,7 +134,7 @@ export class TasksComponent implements OnInit {
       taskArray.splice(indexToRemove, 1);
     }
 
-    this.saveTasksToStorage();
+    this.DataService.saveData(this.Tasks);      
   }
 
   ngOnInit(): void {
