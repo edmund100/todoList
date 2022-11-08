@@ -1,8 +1,9 @@
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { Component, OnInit, Inject } from '@angular/core';  
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';  
+import { MatDialog } from '@angular/material/dialog';
 import {DataService} from '../data.service';
 import {Task} from '../shared/Task';
+import {EditDialog} from '../tasks/edit-dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -141,20 +142,4 @@ export class TasksComponent implements OnInit {
   }
 
   selectedTaskOptions?:Task[];
-}
-
-export interface DialogData {
-  taskName: string,
-  title: string
-}
-
-@Component({
-  selector: 'edit-dialog',
-  templateUrl: 'edit-dialog.html',
-})
-export class EditDialog {
-  constructor(
-    public dialogRef: MatDialogRef<EditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
 }
