@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {DataService} from '../data.service';
 import {Task} from '../shared/Task';
 import {EditDialog} from '../tasks/edit-dialog.component';
+import {TaskModel} from '../shared/TaskModel';
 
 @Component({
   selector: 'app-tasks',
@@ -14,8 +15,17 @@ export class TasksComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private Data: DataService) {
 
-    // how do we call the DataService? todo
-    let tasks = this.DataService.loadData();
+    // Get models.
+    let taskModels = this.DataService.loadData();  
+
+    // Map TaskModel to Task.
+    let tasks = new Array<Task>();
+    taskModels.forEach(taskModel => {
+      const task = new Task();
+      task.Name = taskModel.Name;
+      tasks.push(task);
+    });
+
     this.Tasks = tasks;
     Task.sort(tasks);
   }
@@ -65,7 +75,7 @@ export class TasksComponent implements OnInit {
   
       if (previousTask){
         previousTask.Name = result;
-        this.DataService.saveData(this.Tasks);
+        this.saveTasksToTaskModels();  
       }
 
       Task.sort(this.Tasks);
@@ -103,7 +113,7 @@ export class TasksComponent implements OnInit {
   
       if (!previousTask){
         this.Tasks.push(newTask);
-        this.DataService.saveData(this.Tasks);
+        this.saveTasksToTaskModels();  
       }
 
       Task.sort(this.Tasks);
@@ -112,7 +122,7 @@ export class TasksComponent implements OnInit {
 
   deleteAllTasks() {
     this.Tasks = new Array<Task>();
-    this.DataService.saveData(this.Tasks);
+    this.DataService.clearData();
   }
 
   deleteSelectedTasks() {
@@ -135,11 +145,29 @@ export class TasksComponent implements OnInit {
       taskArray.splice(indexToRemove, 1);
     }
 
-    this.DataService.saveData(this.Tasks);      
+    this.saveTasksToTaskModels();  
   }
 
   ngOnInit(): void {
   }
 
   selectedTaskOptions?:Task[];
+
+  saveTasksToTaskModels(){
+
+    const taskModels = new Array<TaskModel>();
+
+    if (!this.Tasks) {
+      return;
+    }
+
+    this.Tasks.forEach(task => {
+      const taskModel = new TaskModel();
+      taskModel.Name = task.Name;
+      taskModels.push(taskModel);
+    });
+
+    this.DataService.saveData(taskModels);
+  }
+
 }

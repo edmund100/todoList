@@ -1,8 +1,8 @@
-export class Task
+export class TaskModel
 {
    Name?:string;
 
-   static sort(tasks:Task[]){
+   static sort(tasks:TaskModel[]){
       tasks = tasks.sort((n1,n2) => {
   
         if (n1 && n1.Name && n2 && n2.Name){
