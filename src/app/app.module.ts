@@ -20,6 +20,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     IntroComponent,
     ProjectsComponent,
     NavMenuComponent,
-    EditDialog
+    EditDialog,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

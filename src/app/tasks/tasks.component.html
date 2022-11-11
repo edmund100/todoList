@@ -13,7 +13,8 @@
       matTooltip="Edit selected task" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
     <span>&nbsp;</span>
     <button mat-raised-button (click)="clearSelectedTask()"
-      matTooltip="Clear selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Clear Selected</button>  </form>
+      matTooltip="Clear selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Clear Selected</button>
+  </form>
 </div>
 
 <div>
@@ -23,6 +24,4 @@
     </mat-list-option>
   </mat-selection-list>  
 </div>
-<div style="padding-top:20px">
-  Tasks selected: {{tasks.selectedOptions.selected.length}}
-</div>
+<app-footer [itemsCount]="tasks.selectedOptions.selected.length"></app-footer>
