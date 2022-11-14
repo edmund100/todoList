@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FooterComponent } from './footer/footer.component';
+import { ActionBarComponent } from './action-bar/action-bar.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FooterComponent } from './footer/footer.component';
     ProjectsComponent,
     NavMenuComponent,
     EditDialog,
-    FooterComponent
+    FooterComponent,
+    ActionBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,18 @@
+<div>
+    <form class="task-form">
+      <button mat-raised-button (click)="createItem()"
+        matTooltip={{createMessage}}>Create</button>
+      <span>&nbsp;</span>
+      <button mat-raised-button (click)="deleteAllItems()"
+        matTooltip={{deleteAllMessage}}>Delete All</button>
+      <span>&nbsp;</span>
+      <button mat-raised-button (click)="deleteSelectedItems()"
+        matTooltip={{deleteSelectedMessage}} [disabled]="itemsCount == 0">Delete Selected</button>
+      <span>&nbsp;</span>
+      <button mat-raised-button (click)="editSelectedItem()"
+        matTooltip={{editSelectedMessage}} [disabled]="itemsCount != 1">Edit Selected</button>
+      <span>&nbsp;</span>
+      <button mat-raised-button (click)="clearSelectedItems()"
+        matTooltip={{clearSelectedMessage}} [disabled]="itemsCount == 0">Clear Selected</button>
+    </form>
+  </div>

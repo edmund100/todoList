@@ -41,8 +41,12 @@ export class TasksComponent implements OnInit {
       return;
     }
 
+    const elementsList = new Array<Task>();
+
     options.filter(element => element.Selected).forEach(
-        element => {element.Selected = false;});
+        element => {elementsList.push(element)});
+
+    elementsList.forEach(element => {element.Selected = false;  });
   }
 
   editSelectedTask(){

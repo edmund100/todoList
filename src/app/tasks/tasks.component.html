@@ -1,22 +1,15 @@
-<div>
-  <form class="task-form">
-    <button mat-raised-button (click)="createTask()"
-      matTooltip="Create a task">Create</button>
-    <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteAllTasks()"
-      matTooltip="Delete all tasks">Delete All</button>
-    <span>&nbsp;</span>
-    <button mat-raised-button (click)="deleteSelectedTasks()"
-      matTooltip="Delete selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Delete Selected</button>
-    <span>&nbsp;</span>
-    <button mat-raised-button (click)="editSelectedTask()"
-      matTooltip="Edit selected task" [disabled]="tasks.selectedOptions.selected.length != 1">Edit Selected</button>
-    <span>&nbsp;</span>
-    <button mat-raised-button (click)="clearSelectedTask()"
-      matTooltip="Clear selected tasks" [disabled]="tasks.selectedOptions.selected.length == 0">Clear Selected</button>
-  </form>
-</div>
-
+<app-action-bar
+  createMessage="Create a task" 
+  deleteAllMessage="Delete all tasks"
+  deleteSelectedMessage="Delete seleced tasks"
+  editSelectedMessage="Edit selected task"
+  clearSelectedMessage="Clear selected tasks"
+  (createItemMethod)="this.createTask()"
+  (editSelectedItemMethod)="this.editSelectedTask()"
+  (clearSelectedItemsMethod)="this.clearSelectedTask()"
+  (deleteAllItemsMethod)="this.deleteAllTasks()"
+  (deleteSelectedItemMethod)="this.deleteSelectedTasks()"
+  [itemsCount]=tasks.selectedOptions.selected.length></app-action-bar>
 <div>
   <mat-selection-list [(ngModel)]="selectedTaskOptions" #tasks >
     <mat-list-option #option checkboxPosition="before" *ngFor="let task of Tasks" [value]="task" [(selected)]="task.Selected" >
