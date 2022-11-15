@@ -22,7 +22,7 @@ export class TasksComponent implements OnInit {
     let tasks = new Array<Task>();
     taskModels.forEach(taskModel => {
       const task = new Task();
-      task.Name = taskModel.Name;
+      task.TaskModel.Name = taskModel.Name;
       tasks.push(task);
     });
 
@@ -56,7 +56,7 @@ export class TasksComponent implements OnInit {
       return;
     }
 
-    let oldTaskName: string = options[0].Name || '';
+    let oldTaskName: string = options[0].TaskModel.Name || '';
     if (oldTaskName == '') {
       return;
     }
@@ -74,11 +74,11 @@ export class TasksComponent implements OnInit {
       }
   
       const previousTask = this.Tasks.find((element,index)=>{
-        return element.Name == oldTaskName;
+        return element.TaskModel.Name == oldTaskName;
       })
   
       if (previousTask){
-        previousTask.Name = result;
+        previousTask.TaskModel.Name = result;
         this.saveTasksToTaskModels();  
       }
 
@@ -105,14 +105,14 @@ export class TasksComponent implements OnInit {
       }
 
       const newTask = new Task();
-      newTask.Name = result;
+      newTask.TaskModel.Name = result;
   
       if (!this.Tasks){
         this.Tasks = new Array<Task>();
       }
   
       const previousTask = this.Tasks.find((element,index)=>{
-        return element.Name == result;
+        return element.TaskModel.Name == result;
       })
   
       if (!previousTask){
@@ -138,12 +138,12 @@ export class TasksComponent implements OnInit {
 
     const selectedTasks:string[] = new Array<string>();
 
-    options.filter(element => element.Name && element.Selected).forEach(
-      element => {selectedTasks.push(element.Name ?? "")});
+    options.filter(element => element.TaskModel.Name && element.Selected).forEach(
+      element => {selectedTasks.push(element.TaskModel.Name ?? "")});
 
     for (const selectedTask of selectedTasks){
       const indexToRemove = taskArray.findIndex((element)=>{
-        return element.Name == selectedTask;
+        return element.TaskModel.Name == selectedTask;
       })
 
       taskArray.splice(indexToRemove, 1);
@@ -166,9 +166,7 @@ export class TasksComponent implements OnInit {
     }
 
     this.Tasks.forEach(task => {
-      const taskModel = new TaskModel();
-      taskModel.Name = task.Name;
-      taskModels.push(taskModel);
+      taskModels.push(task.TaskModel);
     });
 
     this.DataService.saveData(taskModels);

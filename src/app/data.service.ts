@@ -27,11 +27,11 @@ export class DataService {
   }
 
   public clearData(){
-    const tasks = new Array<Task>();
+    const tasks = new Array<TaskModel>();
     localStorage.setItem("Tasks", JSON.stringify(tasks)); 
   }
 
-  public saveData(tasks?:Task[]) {
+  public saveData(tasks?:TaskModel[]) {
     if (!tasks){
       return;
     }

@@ -1,18 +1,28 @@
 import { BooleanInput } from "@angular/cdk/coercion";
+import { TaskModel } from "./TaskModel";
 
 export class Task
 {
-   Name?:string;
+   TaskModel:TaskModel;
    Selected?:BooleanInput;
+
+   constructor(){
+    this.TaskModel = new TaskModel();
+   }
 
    static sort(tasks:Task[]){
       tasks = tasks.sort((n1,n2) => {
+
+        if (!n1 || !n2 || !n1.TaskModel || !n2.TaskModel)
+        {
+          return 0;
+        }
   
-        if (n1 && n1.Name && n2 && n2.Name){
-          if (n1.Name > n2.Name)
+        if (n1.TaskModel.Name && n2.TaskModel.Name){
+          if (n1.TaskModel.Name > n2.TaskModel.Name)
             return 1;
         
-          if (n1.Name < n2.Name)
+          if (n1.TaskModel.Name < n2.TaskModel.Name)
             return -1;
         }      
   
