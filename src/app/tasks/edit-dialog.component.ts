@@ -11,6 +11,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
       public dialogRef: MatDialogRef<EditDialog>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData,
     ) {}
+
+    onEnter() {
+      this.dialogRef.close();
+    }
   }
 
   export interface DialogData {
