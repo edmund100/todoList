@@ -2,10 +2,10 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill" style="width:100%">
     <mat-label>Task Name</mat-label>
-    <input matInput [(ngModel)]="data.taskName" (keyup.enter)="onEnter()">
+    <input matInput [(ngModel)]="data.name" (keyup.enter)="onEnter()">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data.taskName" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
   <button mat-button [mat-dialog-close]="">Cancel</button>
 </div>

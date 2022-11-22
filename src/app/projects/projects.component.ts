@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Project} from '../shared/Project';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-projects',
@@ -13,6 +14,8 @@ export class ProjectsComponent implements OnInit {
   selectedProjectOptions?:Project[];
 
   Projects?:Project[];
+
+  private DataService:DataService = new DataService();
 
   ngOnInit(): void {
   }
@@ -30,11 +33,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteAllProjects() {
-
+    this.Projects = new Array<Project>();
   }
 
   deleteSelectedProjects(){
 
   }
-
 }

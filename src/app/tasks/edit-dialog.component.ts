@@ -1,6 +1,6 @@
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { Component, Inject } from '@angular/core';  
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'edit-dialog',
@@ -18,6 +18,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   }
 
   export interface DialogData {
-    taskName: string,
+    name: string,
     title: string
   }

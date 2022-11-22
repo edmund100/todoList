@@ -1,8 +1,12 @@
 import { BooleanInput } from "@angular/cdk/coercion";
+import { ProjectModel } from "./ProjectModel";
 
 export class Project
 {
-   Name?:string;
-   Tasks?:Task[];
+   ProjectModel:ProjectModel;
    Selected?:BooleanInput;
+
+   constructor(){
+      this.ProjectModel = new ProjectModel();
+   }
 }
