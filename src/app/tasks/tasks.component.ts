@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {DataService} from '../data.service';
 import {Task} from '../shared/Task';
-import {EditDialog} from '../tasks/edit-dialog.component';
+import {EditDialog} from '../edit-dialog/edit-dialog.component';
 import {TaskModel} from '../shared/TaskModel';
 
 @Component({

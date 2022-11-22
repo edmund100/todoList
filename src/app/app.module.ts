@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {EditDialog} from "./tasks/edit-dialog.component";
+import {EditDialog} from "./edit-dialog/edit-dialog.component";
 
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list'; 
