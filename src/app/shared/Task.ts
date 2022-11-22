@@ -1,7 +1,8 @@
 import { BooleanInput } from "@angular/cdk/coercion";
 import { TaskModel } from "./TaskModel";
+import {Item } from "./Item";
 
-export class Task
+export class Task implements Item
 {
    TaskModel:TaskModel;
    Selected?:BooleanInput;

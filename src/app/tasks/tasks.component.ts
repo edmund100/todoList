@@ -13,6 +13,12 @@ import {TaskModel} from '../shared/TaskModel';
 })
 export class TasksComponent implements OnInit {
 
+  private DataService:DataService = new DataService();
+
+  public Tasks?:Task[];
+
+  selectedTaskOptions?:Task[];
+
   constructor(public dialog: MatDialog, private Data: DataService) {
 
     // Get models.
@@ -29,10 +35,6 @@ export class TasksComponent implements OnInit {
     this.Tasks = tasks;
     Task.sort(tasks);
   }
-
-  private DataService:DataService = new DataService();
-
-  public Tasks?:Task[];
 
   // clear selected tasks
   clearSelectedTask() {    
@@ -89,7 +91,7 @@ export class TasksComponent implements OnInit {
   openDialog(taskName: string, title: string){
     const dialogRef = this.dialog.open(EditDialog, {
       width: '500px',
-      data: {taskName: taskName, title:title}
+      data: {name: taskName, title:title}
     });
 
     return dialogRef;
@@ -154,8 +156,6 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  selectedTaskOptions?:Task[];
 
   saveTasksToTaskModels(){
 
