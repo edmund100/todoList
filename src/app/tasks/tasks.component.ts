@@ -81,7 +81,7 @@ export class TasksComponent implements OnInit {
   
       if (previousTask){
         previousTask.TaskModel.Name = result;
-        this.saveTasksToTaskModels();  
+        this.saveData();  
       }
 
       Task.sort(this.Tasks);
@@ -119,7 +119,7 @@ export class TasksComponent implements OnInit {
   
       if (!previousTask){
         this.Tasks.push(newTask);
-        this.saveTasksToTaskModels();  
+        this.saveData();  
       }
 
       Task.sort(this.Tasks);
@@ -151,13 +151,13 @@ export class TasksComponent implements OnInit {
       taskArray.splice(indexToRemove, 1);
     }
 
-    this.saveTasksToTaskModels();  
+    this.saveData();  
   }
 
   ngOnInit(): void {
   }
 
-  saveTasksToTaskModels(){
+  saveData(){
 
     const taskModels = new Array<TaskModel>();
 
