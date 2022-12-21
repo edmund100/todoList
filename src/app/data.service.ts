@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {TaskModel} from './shared/TaskModel';
-import {ProjectModel} from './shared/ProjectModel';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
@@ -8,29 +7,6 @@ import { isNull } from '@angular/compiler/src/output/output_ast';
 })
 export class DataService {
   constructor() { }
-
-  public loadDataNew(): ProjectModel[]{
-
-    let jsonData = localStorage.getItem("Projects");
-    if (!jsonData){
-      return new Array<ProjectModel>();
-    }
-
-    let jsonString = String(localStorage.getItem("Projects"));
-    if (!jsonString)
-    {
-      return new Array<ProjectModel>();
-    }
-
-    try{
-      let projects = JSON.parse(jsonString) as ProjectModel[];
-      return projects;   
-    }
-    catch
-    {
-      return new Array<ProjectModel>();
-    }
-  }
 
   public loadData(): TaskModel[]{
 
@@ -57,15 +33,6 @@ export class DataService {
 
   public clearData(){
     localStorage.setItem("Tasks", JSON.stringify(new Array<TaskModel>())); 
-    localStorage.setItem("Projects", JSON.stringify(new Array<ProjectModel>())); 
-  }
-
-  public saveDataNew(projects?:ProjectModel[]){
-    if (!projects){
-      return;
-    }
-
-    localStorage.setItem("Projects", JSON.stringify(projects));  
   }
 
   public saveData(tasks?:TaskModel[]) {

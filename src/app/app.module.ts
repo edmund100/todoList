@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { IntroComponent } from './about/about.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -28,7 +27,6 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
     AppComponent,
     TasksComponent,
     IntroComponent,
-    ProjectsComponent,
     NavMenuComponent,
     EditDialog,
     FooterComponent,
